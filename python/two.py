@@ -14,4 +14,5 @@ for d in data:
                 break
         else:
             count += 1
+            break
 print(count)
