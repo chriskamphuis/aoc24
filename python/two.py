@@ -7,12 +7,11 @@ for d in data:
         for i in range(len(x)-1):
             if 0 < x[i+1] - x[i] < 4:
                 continue
-            elif step_up(x[:i] + x[i+1:]) or step_up(x[:i+1] + x[i+2:]):
+            elif step_up(x[i-1:i] + x[i+1:]) or step_up([x[i]] + x[i+2:]):
                 count += 1
                 break
             else:
                 break
         else:
             count += 1
-
 print(count)
