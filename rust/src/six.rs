@@ -92,9 +92,7 @@ pub fn main() {
     println!("{:?}", counter);
 }
 
-fn is_loop(_guard: (i32
-                    , i32
-), _dir: Direction, _obstacles: [bool; 130 * 130]) -> bool {
+fn is_loop(_guard: (i32, i32), _dir: Direction, _obstacles: [bool; 130 * 130]) -> bool {
     let mut _dir = _dir;
     let mut _guard = _guard;
     let mut visited = [false; 130*130*4];
