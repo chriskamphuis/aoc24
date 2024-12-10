@@ -1,4 +1,3 @@
-from functools import lru_cache
 from collections import defaultdict
 
 grid = defaultdict(int)
@@ -12,34 +11,23 @@ with open('../data/10.txt') as f:
 
 neighbours = lambda y, x : [(y+1, x), (y-1, x), (y, x+1), (y, x-1)]
 
-@lru_cache
 def heads(y, x):
     if grid[(y, x)] == 9:
-        return {(y, x)}
+        return {(y, x)}, 1
     else:
         splits = set()
+        score = 0
         for neighbour in neighbours(y, x):
             if grid[neighbour] == grid[(y, x)] + 1:
-                splits |= heads(*neighbour)
-        return splits
+                subset, subscore = heads(*neighbour)
+                splits |= subset
+                score += subscore
+        return splits, score
 
-count = 0
+score_a = score_b = 0
 for y2, x2, in starts:
-    count += len(heads(y2, x2))
-print(count)
-
-@lru_cache
-def roads(y, x):
-    if grid[(y, x)] == 9:
-        return 1
-    else:
-        splits = []
-        for neighbour in neighbours(y, x):
-            if grid[neighbour] == grid[(y, x)] + 1:
-                splits.append(roads(*neighbour))
-        return sum(splits)
-
-count = 0
-for y2, x2, in starts:
-    count += roads(y2, x2)
-print(count)
+    subset, score = heads(y2, x2)
+    score_a += len(subset)
+    score_b += score
+print(score_a)
+print(score_b)
