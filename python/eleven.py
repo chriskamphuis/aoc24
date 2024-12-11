@@ -8,7 +8,7 @@ def blink(stone, depth):
     if stone == 0:
         store[(stone, depth)] = blink(1, depth - 1)
     elif (l := len(str(stone))) % 2 == 0:
-        sep = 10 ** l // 2
+        sep = 10 ** (l // 2)
         store[(stone, depth)] = blink(stone//sep, depth - 1) + blink(stone%sep, depth - 1)
     else:
         store[(stone, depth)] = blink(stone * 2024, depth - 1)
