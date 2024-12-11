@@ -1,19 +1,24 @@
-from functools import lru_cache
-
 stones = [int(e) for e in open('../data/11.txt').read().strip().split()]
 
-@lru_cache(maxsize=None)
 def blink(stone, depth):
-    if depth == 0:
-        return 1
-    else:
-        if stone == 0:
-            return blink(1, depth - 1)
-        if (l := len(str(stone))) % 2 == 0:
-            sep = 10 ** l // 2
-            return blink(stone//sep, depth - 1) + blink(stone%sep, depth - 1)
+    store = dict()
+    def inner(stone, depth):
+        if (stone, depth) in store:
+            return store[(stone, depth)]
         else:
-            return blink(stone * 2024, depth - 1)
+            if depth == 0:
+                return 1
+            else:
+                if stone == 0:
+                    store[(stone, depth)] = inner(1, depth - 1)
+                elif (l := len(str(stone))) % 2 == 0:
+                    sep = 10 ** l // 2
+                    store[(stone, depth)] = inner(stone//sep, depth - 1) + inner(stone%sep, depth - 1)
+                else:
+                    store[(stone, depth)] = inner(stone * 2024, depth - 1)
+                return store[(stone, depth)]
+
+    return inner(stone, depth)
 
 print(sum([blink(s, 25) for s in stones]))
 print(sum([blink(s, 75) for s in stones]))
