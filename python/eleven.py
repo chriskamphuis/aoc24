@@ -9,8 +9,8 @@ def blink(stone, depth):
     else:
         if stone == 0:
             return blink(1, depth - 1)
-        if len(str(stone)) % 2 == 0:
-            sep = 10**(len(str(stone)) // 2)
+        if (l := len(str(stone))) % 2 == 0:
+            sep = 10 ** l // 2
             return blink(stone//sep, depth - 1) + blink(stone%sep, depth - 1)
         else:
             return blink(stone * 2024, depth - 1)
