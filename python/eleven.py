@@ -15,7 +15,5 @@ def blink(stone, depth):
         else:
             return blink(stone * 2024, depth - 1)
 
-count = 0
-for s in stones:
-    count += blink(s, 75)
-print(count)
+print(sum([blink(s, 25) for s in stones]))
+print(sum([blink(s, 75) for s in stones]))
