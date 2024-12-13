@@ -1,8 +1,9 @@
 // mod one;
-mod six;
+// mod six;
+mod ten;
 mod utils;
 
 fn main() {
     // one::main();
-    six::main();
+    ten::main();
 }
